@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Shelf Enter",
+  "version": "1.0.0",
+  "description": "One-click async queue for entering Goodreads giveaways using your logged-in session (no Selenium, no stored credentials).",
+  "permissions": ["storage", "offscreen"],
+  "host_permissions": ["*://*.goodreads.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Shelf Enter",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.goodreads.com/giveaway*",
+        "*://*.goodreads.com/giveaway/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

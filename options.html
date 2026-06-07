@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        max-width: 520px;
+        margin: 32px auto;
+        padding: 0 20px;
+        color: #222;
+      }
+      h1 { font-size: 18px; }
+      label { display: block; margin: 18px 0 6px; font-weight: 600; }
+      input[type="text"], input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+      input[type="number"] { width: 120px; }
+      .hint { color: #777; font-size: 12px; margin-top: 4px; }
+      button {
+        margin-top: 22px;
+        background: #7a5c2e;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 9px 18px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      #saved { color: #2f6b3a; margin-left: 12px; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <h1>Settings</h1>
+
+    <label for="preferredAddress">Preferred shipping address</label>
+    <input type="text" id="preferredAddress" placeholder="e.g. Los Angeles or a street name" />
+    <div class="hint">
+      Substring matched (case-insensitive) against the address options on the entry
+      form. Leave blank to use whichever address Goodreads has pre-selected.
+    </div>
+
+    <label for="concurrency">Concurrent entries</label>
+    <input type="number" id="concurrency" min="1" max="5" />
+    <div class="hint">How many entries to process at once. Keep this low (1–2) to be polite to Goodreads.</div>
+
+    <label for="delayMs">Minimum delay between entries (ms)</label>
+    <input type="number" id="delayMs" min="0" step="250" />
+    <div class="hint">Throttle so you don't hammer the site and risk a rate-limit/flag.</div>
+
+    <label for="maxRetries">Max retries per giveaway</label>
+    <input type="number" id="maxRetries" min="0" max="5" />
+
+    <div>
+      <button id="save">Save</button>
+      <span id="saved" hidden>Saved ✓</span>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+/* Toast for quick-enter feedback. We never restyle Goodreads' own elements
+   (that fights React) — only this self-owned, fixed element. */
+
+.gg-toast {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2147483647;
+  max-width: 320px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #7a5c2e;
+  color: #fff;
+  font: 600 13px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+.gg-toast.gg-show {
+  opacity: 1;
+  transform: none;
+}
+
+.gg-toast.gg-ok {
+  background: #3a7d44;
+}
+
+.gg-toast.gg-err {
+  background: #a23b3b;
+}
