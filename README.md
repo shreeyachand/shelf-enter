@@ -1,19 +1,20 @@
-# Shelf Enter
+# 📚 shelf enter
 
-A Chrome extension that enters Goodreads giveaways in one click. Hit the
+### get it... like self?
+
+A Chrome extension that enters Goodreads giveaways in one click instead of like 5. Hit the
 **⚡ Enter Giveaway** button and it queues the entry in the background — picking
 your saved address and agreeing to the terms for you — using your existing
 logged-in session. No Selenium, no stored credentials.
 
-## Install
-
+## install (locally)
 1. Go to `chrome://extensions`
 2. Enable **Developer mode** (top right)
 3. Click **Load unpacked** and select this folder
 4. Open **Settings** (extension popup → Settings) and set your preferred
    shipping address (a substring of the address, e.g. a city, or its numeric id)
 
-## Use
+## use
 
 - Browse `goodreads.com/giveaway` (or any giveaway page) while logged in.
 - Each **Enter Giveaway** button now shows a ⚡. Click it — a toast confirms
@@ -21,7 +22,7 @@ logged-in session. No Selenium, no stored credentials.
 - Click the toolbar icon to see the **queue**: status per giveaway, the address
   used, retry/remove, and clickable titles that open the giveaway page.
 
-## Settings
+## settings
 
 | Option | What it does |
 | --- | --- |
@@ -30,7 +31,7 @@ logged-in session. No Selenium, no stored credentials.
 | Min delay between entries | Throttle so you don't hammer Goodreads. |
 | Max retries | Retry attempts per giveaway on transient failure. |
 
-## How it works
+## how it works
 
 Goodreads' entry flow is two POSTs, replayed with `fetch` using your session
 cookies and the page's CSRF token:
@@ -43,7 +44,8 @@ retries, persisted across restarts). HTML is parsed in an offscreen document
 (`DOMParser` isn't available in MV3 workers). The content script never mutates
 Goodreads' DOM — the ⚡ is CSS-only — to avoid crashing its React app.
 
-## Files
+> based on some pre-claude [exploratory work](https://github.com/shreeyachand/goodreads-giveaway-bot) i did with goodreads in an earlier project
+## files
 
 - `manifest.json` — MV3 config
 - `content.js` / `content.css` — ⚡ marker + click interception + toast
@@ -52,7 +54,7 @@ Goodreads' DOM — the ⚡ is CSS-only — to avoid crashing its React app.
 - `popup.html` / `popup.js` — queue UI
 - `options.html` / `options.js` — settings
 
-## Notes
+## notes
 
 - Be reasonable with concurrency/delay — rapid automated entries risk rate
   limiting or flagging your account.
