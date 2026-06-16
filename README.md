@@ -1,6 +1,6 @@
 # 📚 shelf enter
 
-### get it... like self?
+### like self
 
 A Chrome extension that enters Goodreads giveaways in one click instead of like 5. Hit the
 **⚡ Enter Giveaway** button and it queues the entry in the background — picking
