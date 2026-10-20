@@ -49,7 +49,7 @@ Goodreads' DOM — the ⚡ is CSS-only — to avoid crashing its React app.
 
 - `manifest.json` — MV3 config
 - `content.js` / `content.css` — ⚡ marker + click interception + toast
-- `background.js` — queue + entry logic (`dryRun`/`enterNow`/`debugEnter` console helpers)
+- `background.js` — queue + entry logic
 - `offscreen.html` / `offscreen.js` — form/address parsing
 - `popup.html` / `popup.js` — queue UI
 - `options.html` / `options.js` — settings

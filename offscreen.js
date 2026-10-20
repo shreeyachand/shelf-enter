@@ -39,7 +39,7 @@ function nearestLabel(a) {
 }
 
 // Step 2: the print/kindle giveaway terms page returned after choosing an
-// address. Find the confirm form, check the terms box, keep hidden fields.
+// address. Find the confirm form, check every agreement box, keep hidden fields.
 function parseTerms(html, baseUrl) {
   const doc = new DOMParser().parseFromString(html, "text/html");
   let form =
@@ -55,10 +55,9 @@ function parseTerms(html, baseUrl) {
   const action = abs(form.getAttribute("action") || baseUrl, baseUrl);
   const method = form.getAttribute("method") || "POST";
   const fields = [];
-  let terms = null;
+  const agreements = [];
   let token = null;
 
-  const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   for (const el of form.querySelectorAll("input, select, textarea, button")) {
     const name = el.getAttribute("name");
     if (!name) continue;
@@ -84,12 +83,10 @@ function parseTerms(html, baseUrl) {
     if (name === "authenticity_token") token = value;
 
     if (type === "checkbox") {
-      const isTerms =
-        /terms|agree|rules|conditions/i.test(name) ||
-        /agree|terms|read/i.test(labelFor(el, doc)) ||
-        checkboxes.length === 1;
-      if (isTerms) terms = { name, value: value || "1" };
-      else if (el.hasAttribute("checked")) fields.push({ name, value: value || "on" });
+      // Submit every (enabled) checkbox in the entry form. Goodreads now shows
+      // multiple required agreements (terms + Want to Read). Collecting them
+      // all matters: only submitting one leaves the terms page re-rendered.
+      if (!el.disabled) agreements.push({ name, value: value || "1" });
       continue;
     }
     if (type === "radio") {
@@ -105,16 +102,7 @@ function parseTerms(html, baseUrl) {
     fields.push({ name, value }); // hidden, text, etc.
   }
 
-  return { found: true, action, method, fields, terms, token };
-}
-
-function labelFor(input, doc) {
-  if (input.id) {
-    const l = doc.querySelector(`label[for="${CSS.escape(input.id)}"]`);
-    if (l) return l.textContent.trim();
-  }
-  const parent = input.closest("label");
-  return parent ? parent.textContent.trim() : "";
+  return { found: true, action, method, fields, agreements, token };
 }
 
 function parseEntry(html, baseUrl) {
